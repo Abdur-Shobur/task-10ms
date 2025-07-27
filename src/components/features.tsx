@@ -6,7 +6,7 @@ export function Features({ data }: { data?: FeaturesSection }) {
 	return (
 		<section>
 			<SectionTitle title={data?.name} />
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative bg-gradient-to-br from-blue-950 to-stone-950 py-6 xl:py-16 px-4 text-white rounded-2xl">
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative bg-black bg-gradient-to-br from-blue-950 to-stone-950 py-6 xl:py-16 px-4 text-white rounded-2xl">
 				{data?.values?.map((item, i) => (
 					<div key={i} className="flex gap-4 ">
 						<div className="w-full max-w-9">

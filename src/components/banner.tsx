@@ -13,7 +13,7 @@ export async function Banner({ data }: { data?: ProductData }) {
 	const lang = (await cookies()).get('lang')?.value ?? 'en';
 
 	return (
-		<section className="relative bg-gradient-to-br from-stone-900 to-stone-600 py-8 md:py-16 px-4 text-white">
+		<section className="relative bg-black bg-gradient-to-br from-stone-900 to-stone-600 py-8 md:py-16 px-4 text-white">
 			<div className="container mx-auto">
 				<div className="grid gap-y-8 grid-cols-12 xl:gap-12 items-start">
 					<div className="space-y-4 order-2 md:order-1 col-span-12 lg:space-y-6 md:col-span-7 2xl:col-span-8">
