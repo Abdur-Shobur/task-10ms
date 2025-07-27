@@ -41,7 +41,7 @@ export function MainPagination({ pagination }: { pagination: PaginationType }) {
 
 	return (
 		<div className="flex items-center flex-col xl:flex-row justify-center xl:justify-between py-6 xl:py-10 flex-wrap gap-2">
-			<div className="text-sm text-gray-500 dark:text-gray-400">
+			<div className="text-sm text-gray-500  ">
 				Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong> —
 				Showing <strong>{pagination.items_per_page * currentPage}</strong> of{' '}
 				<strong>{pagination.item_count}</strong> items
