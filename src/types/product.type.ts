@@ -14,9 +14,19 @@ export interface Checklist {
 }
 
 export interface Seo {
-	title: string;
+	defaultMeta: {
+		content: string;
+		type: string;
+		value: string;
+	}[];
 	description: string;
-	image: string;
+	keywords: string[];
+	schema: {
+		meta_name: string;
+		meta_value: string;
+		type: string;
+	}[];
+	title: string;
 }
 
 export interface CtaText {
@@ -195,4 +205,44 @@ export type SectionTypeMap = {
 	feature_explanations: FeatureExplanationsSection;
 	about: AboutSection;
 	faq: FaqSection;
+};
+
+export type Product = {
+	title: string;
+	id: string;
+	slug: string;
+	order_idx: number;
+	modality: string;
+	media: Media[];
+	price_type: string;
+	is_enrolled: boolean;
+	price_details: {
+		min_price: number;
+		min_final_price: number;
+		max_price: number;
+		max_final_price: number;
+		text: string;
+		instructor_text: string;
+	};
+	checklist: string[];
+};
+
+export type Pagination = {
+	total_items: number;
+	item_count: number;
+	items_per_page: number;
+	total_page: number;
+	current_page: number;
+};
+
+export type ProductResponse<T> = {
+	code: number;
+	data: {
+		products: T;
+		pagination_meta: Pagination;
+	};
+	error: unknown[];
+	message: string;
+	payload: unknown[];
+	status_code: number;
 };

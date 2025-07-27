@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 60;
+
 import {
 	Banner,
 	CourseDetails,
@@ -9,14 +12,17 @@ import {
 	StickyChecklist,
 } from '@/components';
 import api from '@/lib/api';
-import { LanParamsProps } from '@/types/language';
-import { ProductData, Section, SectionTypeMap } from '@/types/product';
+import { ProductData, Section, SectionTypeMap } from '@/types/product.type';
 import { Metadata } from 'next';
 
-export default async function Page({ params }: LanParamsProps) {
+export default async function Page({
+	params,
+}: {
+	params: { lang: string; slug: string };
+}) {
 	// fetch data
-	const { lang } = await params;
-	const res = await api.get(`/products/ielts-course?lang=${lang}`);
+	const { lang, slug } = await params;
+	const res = await api.get(`/products/${slug}?lang=${lang}`);
 	const data: ProductData = res?.data?.data;
 
 	// filter sections
@@ -25,9 +31,9 @@ export default async function Page({ params }: LanParamsProps) {
 	return (
 		<>
 			<Banner data={data} />
-			<div className="container max-w-7xl mx-auto my-10">
-				<div className="grid lg:grid-cols-12 gap-12">
-					<div className="col-span-8 space-y-10">
+			<div className="container max-w-7xl mx-auto my-10 px-4">
+				<div className="grid grid-cols-12 gap-4 lg:gap-6 xl:gap-12">
+					<div className="col-span-12 md:col-span-7 2xl:col-span-8 space-y-10 order-2 md:order-1">
 						{sections.map((section, index) => {
 							const Component = sectionComponents[
 								section.type as keyof SectionTypeMap
@@ -35,7 +41,7 @@ export default async function Page({ params }: LanParamsProps) {
 							return <Component key={index} data={section} />;
 						})}
 					</div>
-					<div className="col-span-4">
+					<div className="col-span-12 md:col-span-5 2xl:col-span-4 order-1 md:order-2">
 						<StickyChecklist data={data} lang={lang} />
 					</div>
 				</div>
@@ -60,22 +66,36 @@ const sectionComponents: {
 function isKnownSectionType(
 	section: Section
 ): section is SectionTypeMap[keyof SectionTypeMap] {
-	return section.type in sectionComponents;
+	return section.type in sectionComponents && section.values.length > 0;
 }
 
 // generate metadata
 export async function generateMetadata({
 	params,
-}: LanParamsProps): Promise<Metadata> {
-	const { lang } = await params;
-	const res = await api.get(`/products/ielts-course?lang=${lang}`);
+}: {
+	params: { lang: string; slug: string };
+}): Promise<Metadata> {
+	const { lang, slug } = await params;
+	const res = await api.get(`/products/${slug}?lang=${lang}`);
 	const data: ProductData = res.data?.data;
 
+	const seo = data.seo;
+
 	return {
-		title: data.seo?.title,
-		description: data.seo?.description,
+		title: seo?.title,
+		description: seo?.description,
+		keywords: seo?.keywords,
 		openGraph: {
-			images: [data.seo?.image],
+			title: seo?.title,
+			description: seo?.description,
+			images: seo?.defaultMeta
+				?.filter((meta) => meta.type === 'image')
+				?.map((meta) => meta.value),
+		},
+		other: {
+			...Object?.fromEntries(
+				seo?.defaultMeta?.map((meta) => [meta.type, meta.value]) || []
+			),
 		},
 	};
 }

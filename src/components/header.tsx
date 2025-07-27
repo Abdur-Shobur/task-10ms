@@ -1,37 +1,37 @@
-import React from 'react';
+import Image from 'next/image';
+import { LanguageSwitch } from './language-switch';
+import NextLink from './link';
 
 export function Header() {
 	return (
 		<header className="bg-white shadow-sm">
 			<div className="container mx-auto px-4 py-4 flex justify-between items-center">
 				<div className="flex items-center">
-					<img
-						src="https://cdn.10minuteschool.com/images/logo.png"
-						alt="10 Minute School"
-						className="h-10"
-					/>
+					<NextLink href="/product">
+						<Image
+							src="https://cdn.10minuteschool.com/images/svg/10mslogo-svg.svg"
+							alt="10 Minute School"
+							className="h-10"
+							width={100}
+							height={100}
+						/>
+					</NextLink>
 				</div>
 				<nav className="hidden md:flex space-x-8">
-					<a href="#" className="text-gray-700 hover:text-blue-600">
-						Home
-					</a>
-					<a href="#" className="text-gray-700 hover:text-blue-600">
-						Courses
-					</a>
-					<a href="#" className="text-gray-700 hover:text-blue-600">
-						About
-					</a>
-					<a href="#" className="text-gray-700 hover:text-blue-600">
-						Contact
-					</a>
+					<NextLink href="/product">All Courses</NextLink>
+					<NextLink href="/product/ielts-course">Ielts Courses</NextLink>
+					<NextLink href="/product/spoken-and-grammar-bundle-course">
+						Spoken English
+					</NextLink>
+					<NextLink href="/product/kids-english-programme">
+						Kids English
+					</NextLink>
+					<NextLink href="/product/class-10-bangla-english-ict-math-for-ssc-2026">
+						Class 10
+					</NextLink>
 				</nav>
 				<div className="flex items-center space-x-4">
-					<button className="md:hidden text-gray-700">
-						<i className="fas fa-bars text-xl"></i>
-					</button>
-					<button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-						Login
-					</button>
+					<LanguageSwitch />
 				</div>
 			</div>
 		</header>

@@ -1,16 +1,17 @@
 'use client';
 
+import { Media } from '@/types/product.type';
+import Image from 'next/image';
 import React from 'react';
-import 'swiper/css';
-import 'swiper/css/thumbs';
+import ReactPlayer from 'react-player';
+import { Swiper as SwiperType } from 'swiper';
 import { Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Media } from '@/types/product';
-import ReactPlayer from 'react-player';
-
 const MediaGallery = ({ media }: { media: Media[] }) => {
-	const [thumbsSwiper, setThumbsSwiper] = React.useState<any>(null);
+	const [thumbsSwiper, setThumbsSwiper] = React.useState<SwiperType | null>(
+		null
+	);
 
 	// Filter relevant media
 	const displayMedia = media.filter(
@@ -18,12 +19,12 @@ const MediaGallery = ({ media }: { media: Media[] }) => {
 	);
 
 	return (
-		<div className="space-y-6">
+		<div className="space-y-2 md:space-y-6">
 			{/* Main Slider */}
 			<Swiper
 				modules={[Thumbs]}
 				thumbs={{ swiper: thumbsSwiper }}
-				className="w-full aspect-video rounded-xl overflow-hidden"
+				className="w-full aspect-video rounded-sm md:rounded-xl overflow-hidden"
 			>
 				{displayMedia.map((item, index) => (
 					<SwiperSlide key={index}>
@@ -35,10 +36,12 @@ const MediaGallery = ({ media }: { media: Media[] }) => {
 								height="100%"
 							/>
 						) : (
-							<img
+							<Image
 								src={item.resource_value}
 								alt={item.name}
 								className="w-full h-full object-cover"
+								width={600}
+								height={400}
 							/>
 						)}
 					</SwiperSlide>
@@ -52,9 +55,23 @@ const MediaGallery = ({ media }: { media: Media[] }) => {
 				slidesPerView={5}
 				watchSlidesProgress
 				className="rounded-md"
+				breakpoints={{
+					0: {
+						slidesPerView: 3,
+						spaceBetween: 10,
+					},
+					1280: {
+						slidesPerView: 4,
+						spaceBetween: 10,
+					},
+					1536: {
+						slidesPerView: 5,
+						spaceBetween: 10,
+					},
+				}}
 			>
 				{displayMedia.map((item, index) => (
-					<SwiperSlide key={index}>
+					<SwiperSlide key={index + '1'} className="thumb">
 						<img
 							src={
 								item.thumbnail_url && item.thumbnail_url !== ''

@@ -4,26 +4,25 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from '@/components/ui/accordion';
-import { FaqSection } from '@/types/product';
+import { FaqSection } from '@/types/product.type';
 import parse from 'html-react-parser';
+import { SectionTitle } from './section-title';
 export function Faqs({ data }: { data: FaqSection }) {
 	return (
 		<>
-			<h2 className="text-2xl font-bold text-stone-700 mb-4">
-				{data?.name || ''}
-			</h2>
+			<SectionTitle title={data?.name} />
 			<div className="grid grid-cols-1 gap-4 md:gap-8 border border-blue-100 p-4 rounded-2xl">
 				<Accordion type="single" collapsible className="space-y-4">
 					{data.values?.map((item, index) => (
 						<AccordionItem
 							key={index}
 							value={`item-${index}`}
-							className="bg-white rounded-lg px-6"
+							className="bg-white rounded-lg lg:px-6 "
 						>
-							<AccordionTrigger className="text-left font-semibold text-lg">
+							<AccordionTrigger className="text-left font-semibold xl:text-lg px-2 py-2 lg:py-4">
 								{item.question}
 							</AccordionTrigger>
-							<AccordionContent className="text-gray-600 leading-relaxed text-lg">
+							<AccordionContent className="text-gray-600 leading-relaxed xl:text-lg px-2 py-2 lg:py-4">
 								{typeof item.answer === 'string' ? parse(item.answer) : null}
 							</AccordionContent>
 						</AccordionItem>

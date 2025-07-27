@@ -1,19 +1,18 @@
-import { InstructorsSection } from '@/types/product';
+import { InstructorsSection } from '@/types/product.type';
 import parse from 'html-react-parser';
+import { SectionTitle } from './section-title';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Card, CardContent } from './ui/card';
 
 export function Instructors({ data }: { data: InstructorsSection }) {
 	return (
 		<section>
-			<h2 className="text-2xl font-bold text-stone-700 mb-4">
-				{data?.name || ''}
-			</h2>
+			<SectionTitle title={data?.name} />
 			<div className="flex gap-2 overflow-x-auto">
 				{data?.values?.map((item, i) => (
-					<Card key={i} className="min-w-md w-full">
-						<CardContent>
-							<div className="flex flex-col md:flex-row items-center gap-6">
+					<Card key={i} className="min-w-xs lg:min-w-md w-full py-4 xl:py-6">
+						<CardContent className="px-4 xl:px-6">
+							<div className="flex   items-center gap-4 xl:gap-6">
 								<Avatar className="w-24 h-24">
 									<AvatarImage
 										src={item?.image || '/placeholder.svg'}
@@ -21,8 +20,8 @@ export function Instructors({ data }: { data: InstructorsSection }) {
 									/>
 									<AvatarFallback>{item?.name.charAt(0)}</AvatarFallback>
 								</Avatar>
-								<div className="text-center md:text-left space-y-2">
-									<h3 className="text-xl font-bold text-gray-700">
+								<div className=" text-left space-y-1 xl:space-y-2">
+									<h3 className="text-lg xl:text-xl font-bold text-gray-700">
 										{item?.name || ''}
 									</h3>
 									<div className="text-gray-600 ">

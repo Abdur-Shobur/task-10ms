@@ -1,4 +1,4 @@
-import { iGetLanguage } from '@/types/language';
+import { iGetLanguage } from '@/types/language.type';
 
 const language: iGetLanguage = {
 	en: {

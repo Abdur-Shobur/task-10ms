@@ -3,6 +3,7 @@ import { Header } from '@/components/header';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import 'swiper/css';
+import 'swiper/css/thumbs';
 import './globals.css';
 
 const geistSans = Geist({
@@ -27,6 +28,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
+			<head>
+				<link rel="icon" href="/fav.png" sizes="any" />
+				<link rel="apple-touch-icon" href="/fav.png" />
+			</head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>

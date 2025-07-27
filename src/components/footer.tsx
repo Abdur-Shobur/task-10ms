@@ -1,18 +1,20 @@
-import React from 'react';
+import Image from 'next/image';
 
 export function Footer() {
 	return (
 		<footer className="bg-gray-800 text-white py-12">
 			<div className="container mx-auto px-4">
-				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
 					<div>
-						<img
-							src="https://cdn.10minuteschool.com/images/logo-white.png"
+						<Image
+							src="https://cdn.10minuteschool.com/images/svg/10mslogo-svg.svg"
 							alt="10 Minute School"
-							className="h-10 mb-4"
+							className="h-10 mb-4 invert"
+							width={100}
+							height={100}
 						/>
 						<p className="text-gray-400">
-							Bangladesh's largest online learning platform
+							Bangladesh&apos;s largest online learning platform
 						</p>
 					</div>
 					<div>
@@ -86,7 +88,7 @@ export function Footer() {
 					</div>
 				</div>
 				<div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-					<p>© 2023 10 Minute School. All rights reserved.</p>
+					<p>© 2025 10 Minute School. All rights reserved.</p>
 				</div>
 			</div>
 		</footer>
