@@ -1,8 +1,10 @@
+import { Motion, MotionView } from '@/lib/motion';
 import { Product } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default async function ProductCard({ item }: { item: Product }) {
+	// Get image
 	const image = item?.media?.find((m) => m.resource_type === 'image');
 	const imageUrl =
 		image?.resource_value ||
@@ -11,45 +13,46 @@ export default async function ProductCard({ item }: { item: Product }) {
 		)}`;
 
 	return (
-		<article className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-			<div className="h-56 w-full">
-				<Link href={`product/${item.slug}`}>
-					<Image
-						className="mx-auto h-full object-contain "
-						src={imageUrl}
-						alt={item.title}
-						width={600}
-						height={400}
-					/>
-				</Link>
-			</div>
+		<article className="h-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+			<MotionView>
+				<div className="h-56 w-full">
+					<Link href={`product/${item.slug}`}>
+						<Image
+							className="mx-auto h-full object-contain "
+							src={imageUrl}
+							alt={item.title}
+							width={600}
+							height={400}
+						/>
+					</Link>
+				</div>
+			</MotionView>
 			<div className="pt-3 md:pt-6">
-				<Link
-					href={`product/${item.slug}`}
-					className="text-lg font-semibold leading-tight text-gray-900 hover:underline  "
-				>
-					{item.title}
-				</Link>
+				<Motion>
+					<Link
+						href={`product/${item.slug}`}
+						className="text-lg font-semibold leading-tight text-gray-900 hover:underline  "
+					>
+						{item.title}
+					</Link>
+				</Motion>
 
 				{/* Price display */}
-				<div className="mt-4 flex items-center justify-between gap-4">
-					<p className="text-2xl font-extrabold leading-tight text-gray-900  ">
-						{item.price_details?.min_final_price
-							? `৳${item.price_details.min_final_price.toLocaleString()}`
-							: 'Free'}
-					</p>
-					<button
-						type="button"
-						className="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300   "
-					>
-						Add to cart
-					</button>
-				</div>
+				<Motion>
+					<div className="mt-4 flex items-center justify-between gap-4">
+						<p className="text-2xl font-extrabold leading-tight text-gray-900  ">
+							{item.price_details?.min_final_price
+								? `৳${item.price_details.min_final_price.toLocaleString()}`
+								: 'Free'}
+						</p>
+					</div>
+				</Motion>
 
-				{/* Optional: Modality and price type */}
-				<div className="mt-2 text-sm text-gray-600  ">
-					{item.modality} - {item.price_type}
-				</div>
+				<Motion>
+					<div className="mt-2 text-sm text-gray-600  ">
+						{item.modality} - {item.price_type}
+					</div>
+				</Motion>
 			</div>
 		</article>
 	);

@@ -1,12 +1,19 @@
-// middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
+	const { pathname } = request.nextUrl;
+
+	// Redirect root "/" to "/en"
+	if (pathname === '/') {
+		const url = request.nextUrl.clone();
+		url.pathname = '/en';
+		return NextResponse.redirect(url);
+	}
+
 	const response = NextResponse.next();
 
-	// Extract lang from the URL path (e.g., /en/home)
-	const pathname = request.nextUrl.pathname;
-	const lang = pathname.split('/')[1]; // 'en', 'fr', etc.
+	// Extract language from pathname like /en, /fr, etc.
+	const lang = pathname.split('/')[1];
 
 	if (lang) {
 		response.cookies.set('lang', lang, {
@@ -20,7 +27,7 @@ export function middleware(request: NextRequest) {
 	return response;
 }
 
-// Only run on routes like /en/... or /fr/...
+// Match all routes so we can catch "/"
 export const config = {
-	matcher: ['/:lang*'],
+	matcher: ['/((?!_next|api|favicon.ico).*)'], // exclude static and API routes
 };

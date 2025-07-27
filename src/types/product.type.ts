@@ -246,3 +246,11 @@ export type ProductResponse<T> = {
 	payload: unknown[];
 	status_code: number;
 };
+export type ProductDetailsResponse<T> = {
+	code: number;
+	data: T;
+	error: unknown[];
+	message: string;
+	payload: unknown[];
+	status_code: number;
+};

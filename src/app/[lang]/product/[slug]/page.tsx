@@ -1,6 +1,3 @@
-export const dynamic = 'force-dynamic';
-export const revalidate = 60;
-
 import {
 	Banner,
 	CourseDetails,
@@ -11,9 +8,16 @@ import {
 	Pointers,
 	StickyChecklist,
 } from '@/components';
-import api from '@/lib/api';
-import { ProductData, Section, SectionTypeMap } from '@/types/product.type';
+import { getApiData } from '@/lib/api';
+import { MotionShow } from '@/lib/motion';
+import {
+	ProductData,
+	ProductDetailsResponse,
+	Section,
+	SectionTypeMap,
+} from '@/types/product.type';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export default async function Page({
 	params,
@@ -22,8 +26,15 @@ export default async function Page({
 }) {
 	// fetch data
 	const { lang, slug } = await params;
-	const res = await api.get(`/products/${slug}?lang=${lang}`);
-	const data: ProductData = res?.data?.data;
+
+	const res = await getApiData<ProductDetailsResponse<ProductData>>(
+		`/products/${slug}?lang=${lang || 'en'}`
+	);
+
+	if (!res) {
+		return notFound();
+	}
+	const data = res?.data;
 
 	// filter sections
 	const sections = (data.sections || []).filter(isKnownSectionType);
@@ -38,7 +49,11 @@ export default async function Page({
 							const Component = sectionComponents[
 								section.type as keyof SectionTypeMap
 							] as React.FC<{ data: typeof section }>;
-							return <Component key={index} data={section} />;
+							return (
+								<MotionShow key={index} once>
+									<Component data={section} />
+								</MotionShow>
+							);
 						})}
 					</div>
 					<div className="col-span-12 md:col-span-5 2xl:col-span-4 order-1 md:order-2">
@@ -76,8 +91,14 @@ export async function generateMetadata({
 	params: { lang: string; slug: string };
 }): Promise<Metadata> {
 	const { lang, slug } = await params;
-	const res = await api.get(`/products/${slug}?lang=${lang}`);
-	const data: ProductData = res.data?.data;
+	const res = await getApiData<ProductDetailsResponse<ProductData>>(
+		`/products/${slug}?lang=${lang}`
+	);
+	const data = res?.data;
+
+	if (!data) {
+		return {};
+	}
 
 	const seo = data.seo;
 

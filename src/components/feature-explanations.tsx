@@ -1,3 +1,4 @@
+import { MotionItem } from '@/lib/motion';
 import { FeatureExplanationsSection } from '@/types/product.type';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
@@ -24,13 +25,12 @@ export function FeatureExplanations({
 
 							<div className=" space-y-2 lg:space-y-4">
 								{item?.checklist?.map((checklist, i) => (
-									<p
-										key={i}
-										className="flex items-center gap-2 lg:gap-3 xl:text-xl"
-									>
-										<Check className="w-5 h-5 text-blue-600" />
-										{checklist}
-									</p>
+									<MotionItem key={i} i={i}>
+										<p className="flex items-center gap-2 lg:gap-3 xl:text-xl">
+											<Check className="w-5 h-5 text-blue-600" />
+											{checklist}
+										</p>
+									</MotionItem>
 								))}
 							</div>
 						</div>
