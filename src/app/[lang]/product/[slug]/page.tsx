@@ -97,7 +97,10 @@ export async function generateMetadata({
 	const data = res?.data;
 
 	if (!data) {
-		return {};
+		return {
+			title: '10ms School - Product not found',
+			description: 'data not found',
+		};
 	}
 
 	const seo = data.seo;

@@ -3,6 +3,7 @@ import { env } from './env';
 export async function getApiData<T>(url: string): Promise<T | null> {
 	try {
 		const res = await fetch(env.baseAPI + url, {
+			cache: 'reload',
 			headers: {
 				'Content-Type': 'application/json',
 				'X-TENMS-SOURCE-PLATFORM': 'web',
