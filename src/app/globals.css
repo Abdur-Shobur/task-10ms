@@ -130,14 +130,22 @@
 .swiper-slide-thumb-active {
 	@apply border-2 border-primary rounded-md;
 }
+.swiper-button-prev,
+.swiper-button-next {
+	--swiper-navigation-size: 16px;
+	--swiper-navigation-color: #1e75b7;
+	background: #000;
+	width: 30px;
+	height: 30px;
+	opacity: 0.7;
+	border-radius: 50%;
+}
 
 .progress-bar {
 	position: absolute;
 	height: 4px;
 	width: 100%;
 	background: #1e75b7;
-	/* background: linear-gradient(0deg, rgb(51, 141, 122) 0%, #1142b4); */
-	/* bottom: -5px; */
 	top: 0px;
 	overflow: hidden;
 }

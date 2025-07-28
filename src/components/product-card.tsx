@@ -13,9 +13,9 @@ export default async function ProductCard({ item }: { item: Product }) {
 		)}`;
 
 	return (
-		<article className="h-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+		<article className="h-full rounded-lg border border-gray-200 bg-white p-2 lg:p-6 shadow-sm">
 			<MotionView>
-				<div className="h-56 w-full">
+				<div className="w-full">
 					<Link href={`product/${item.slug}`}>
 						<Image
 							className="mx-auto h-full object-contain "
@@ -27,11 +27,11 @@ export default async function ProductCard({ item }: { item: Product }) {
 					</Link>
 				</div>
 			</MotionView>
-			<div className="pt-3 md:pt-6">
+			<div className="pt-1 md:pt-3 lg:pt-6">
 				<Motion>
 					<Link
 						href={`product/${item.slug}`}
-						className="text-lg font-semibold leading-tight text-gray-900 hover:underline  "
+						className="text-sm lg:text-lg font-semibold leading-tight text-gray-900 hover:underline  "
 					>
 						{item.title}
 					</Link>
@@ -39,8 +39,8 @@ export default async function ProductCard({ item }: { item: Product }) {
 
 				{/* Price display */}
 				<Motion>
-					<div className="mt-4 flex items-center justify-between gap-4">
-						<p className="text-2xl font-extrabold leading-tight text-gray-900  ">
+					<div className="mt-1 md:mt-2 lg:mt-4 flex items-center justify-between gap-4">
+						<p className="text-sm md:text-xl xl:text-2xl font-extrabold leading-tight text-gray-900  ">
 							{item.price_details?.min_final_price
 								? `৳${item.price_details.min_final_price.toLocaleString()}`
 								: 'Free'}

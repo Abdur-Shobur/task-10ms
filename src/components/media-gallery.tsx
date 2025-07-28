@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React from 'react';
 import ReactPlayer from 'react-player';
 import { Swiper as SwiperType } from 'swiper';
-import { Thumbs } from 'swiper/modules';
+import { Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 const MediaGallery = ({ media }: { media: Media[] }) => {
@@ -22,8 +22,9 @@ const MediaGallery = ({ media }: { media: Media[] }) => {
 		<div className="space-y-2 md:space-y-6">
 			{/* Main Slider */}
 			<Swiper
-				modules={[Thumbs]}
+				modules={[Thumbs, Navigation]}
 				thumbs={{ swiper: thumbsSwiper }}
+				navigation
 				className="w-full aspect-video rounded-sm md:rounded-xl overflow-hidden"
 			>
 				{displayMedia.map((item, index) => (
